@@ -7,7 +7,7 @@
 			<link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
 			<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
-			<link rel="stylesheet" type="text/css" href="../assets/styles/crisp.css?v=0be89d0b46">
+			<link rel="stylesheet" type="text/css" href="../assets/styles/crisp.css?v=7ebb2b7986">
 	    <meta name="HandheldFriendly" content="True">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -15,7 +15,7 @@
 				<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 				<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 			<![endif]-->
-				<link rel="stylesheet" type="text/css" href="../assets/styles/rrssb.css?v=0be89d0b46">
+				<link rel="stylesheet" type="text/css" href="../assets/styles/rrssb.css?v=7ebb2b7986">
 	<meta property="og:title" content="Rotating Kops and Hephy Credentials">
 	<meta property="og:type" content="article">
 	<meta property="og:description" content="Sometimes you need to rotate all credentials in long-running Kubernetes clusters which are usually created automatically by your deployment tool of choice. This happens as certificates and other automatically created secrets could expire. In my case, this happened because the etcd internal TLS certificate expired. In the TeamHephy cluster we...">
@@ -24,7 +24,7 @@
     <link rel="canonical" href="index.html">
     <meta name="referrer" content="no-referrer-when-downgrade">
     <link rel="amphtml" href="amp/index.html">
-
+    
     <meta property="og:site_name" content="MOVEQ">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Rotating Kops and Hephy Credentials">
@@ -35,7 +35,7 @@
     <meta property="article:modified_time" content="2020-07-02T19:33:46.000Z">
     <meta property="article:tag" content="hephy">
     <meta property="article:tag" content="tutorial">
-
+    
     <meta property="article:publisher" content="https://www.facebook.com/ghost">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Rotating Kops and Hephy Credentials">
@@ -50,7 +50,7 @@
     <meta name="twitter:creator" content="@Cryptophobia">
     <meta property="og:image:width" content="312">
     <meta property="og:image:height" content="373">
-
+    
     <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -147,11 +147,11 @@ Options:
 --username=the account's username.</code></pre><h4 id="case-2-you-are-the-one-and-only-administrator-in-hephy-controller-"><br>Case 2: You are the one and only administrator in hephy-controller:</h4><p>Find your deis-controller pod:</p><pre><code class="language-bash">$ kubectl get pods -n deis | grep -i "deis-controller"
 deis-controller-762839819f-a6fzn                  1/1     Running   0          15d
 </code></pre><p>Execute the command to get into Django managment shell:</p><pre><code class="language-bash">$ kubectl exec --namespace=deis -it deis-controller-762839819f-a6fzn ./manage.py shell
-Python 3.6.9 (default, Apr 18 2020, 01:56:04)
+Python 3.6.9 (default, Apr 18 2020, 01:56:04) 
 [GCC 8.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 (InteractiveConsole)
-&gt;&gt;&gt;
+&gt;&gt;&gt; 
 </code></pre><p>Now in the interactive management console:</p><pre><code class="language-bash">&gt;&gt;&gt; from django.contrib.auth.models import User
 &gt;&gt;&gt; u = User.objects.get(username__exact='{your_account_name}')
 &gt;&gt;&gt; u.set_password('{new_password_plain_text}')
@@ -216,7 +216,7 @@ Type "help", "copyright", "credits" or "license" for more information.
   </ul>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="../assets/js/rrssb.min.js?v=0be89d0b46"></script>
+<script src="../assets/js/rrssb.min.js?v=7ebb2b7986"></script>
   <!-- <div id="comments">
 	<div id="disqus_thread"></div>
 	<script>
@@ -233,7 +233,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 	</script>
 	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div> -->
-</article>
+</article>  
 
 		</main>
 		<footer id="footer">
