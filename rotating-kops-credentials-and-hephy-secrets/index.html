@@ -3,10 +3,10 @@
 	    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	    <title>Rotating Kops and Hephy Credentials</title>
-	    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,300,700" rel="stylesheet" type="text/css">
-			<link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
-			<link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+	    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,700italic,300,700" rel="stylesheet" type="text/css">
+			<link href="http://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
+			<link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+			<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
 			<link rel="stylesheet" type="text/css" href="../assets/styles/crisp.css?v=0be89d0b46">
 	    <meta name="HandheldFriendly" content="True">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
     <meta property="og:url" content="http://localhost:2368/rotating-kops-credentials-and-hephy-secrets/">
     <meta property="og:image" content="http://localhost:2368/content/images/2020/07/Selection_149-1.png">
     <meta property="article:published_time" content="2020-07-02T17:32:00.000Z">
-    <meta property="article:modified_time" content="2020-07-02T17:34:48.000Z">
+    <meta property="article:modified_time" content="2020-07-02T19:33:46.000Z">
     <meta property="article:tag" content="hephy">
     <meta property="article:tag" content="tutorial">
     
@@ -77,7 +77,7 @@
     "headline": "Rotating Kops and Hephy Credentials",
     "url": "http://localhost:2368/rotating-kops-credentials-and-hephy-secrets/",
     "datePublished": "2020-07-02T17:32:00.000Z",
-    "dateModified": "2020-07-02T17:34:48.000Z",
+    "dateModified": "2020-07-02T19:33:46.000Z",
     "image": {
         "@type": "ImageObject",
         "url": "http://localhost:2368/content/images/2020/07/Selection_149-1.png",
@@ -136,7 +136,7 @@
 			<article id="5efe10ca130471bb0edae219" class="post tag-hephy tag-tutorial">
 	<div class="post-stamp">July 2, 2020<span class="taglist"> · <a href="../tag/hephy/">hephy</a> <a href="../tag/tutorial/">tutorial</a></span></div>
 	<h1 class="post-title">Rotating Kops and Hephy Credentials</h1>
-	<p>Sometimes you need to rotate all credentials in long-running Kubernetes clusters which are usually created automatically by your deployment tool of choice. This happens as certificates and other automatically created secrets could expire. In my case, this happened because the etcd internal TLS certificate expired.</p><p>In the TeamHephy cluster we use <a href="https://github.com/kubernetes/kops">kops</a> as the deployment tool for AWS and there is a great guide written by the kops maintainers for rotating all the k8s control plane secrets:</p><p>Link: <a href="https://github.com/kubernetes/kops/blob/master/docs/rotate-secrets.md">Rotate Kops Secrets and Credentials Guide</a></p><h3 id="resetting-your-passwords-in-hephy-workflow-"><br>Resetting your passwords in Hephy Workflow:</h3><p>(hephy-controller and deis-controller are used interchangeably here)</p><h4 id="case-1-you-are-not-an-admin-in-hephy-controller-ask-your-administrator-to-exec-deis-auth-passwd-user-your_account-"><br>Case 1: You are not an admin in hephy-controller:<br><br>Ask your administrator to exec:  <code>deis auth:passwd --user {your_account}</code></h4><pre><code class="language-shell">$ deis auth:passwd --help
+	<p>Sometimes you need to rotate all credentials in long-running Kubernetes clusters which are usually created automatically by your deployment tool of choice. This happens as certificates and other automatically created secrets could expire. In my case, this happened because the etcd internal TLS certificate expired.</p><p>In the TeamHephy cluster we use <a href="https://github.com/kubernetes/kops">kops</a> as the deployment tool for AWS and there is a great guide written by the kops maintainers for rotating all the k8s control plane secrets:</p><p>Link: <a href="https://github.com/kubernetes/kops/blob/master/docs/rotate-secrets.md">Rotate Kops Secrets and Credentials Guide</a></p><h3 id="resetting-your-passwords-in-hephy-workflow-"><br>Resetting your passwords in Hephy Workflow:</h3><p>(hephy-controller and deis-controller are used interchangeably here)</p><h4 id="case-1-you-are-not-an-admin-in-hephy-controller-ask-your-administrator-to-exec-deis-auth-passwd-user-your_account-"><br>Case 1: You are not an admin in hephy-controller:<br><br>Ask your administrator to exec:  <code>deis auth:passwd --user {your_account}</code></h4><pre><code class="language-bash">$ deis auth:passwd --help
 Changes the password for the current user.
 
 Usage: deis auth:passwd [options]
@@ -144,15 +144,15 @@ Usage: deis auth:passwd [options]
 Options:
 --password=the current password for the account.
 --new-password=the new password for the account.
---username=the account's username.</code></pre><h4 id="case-2-you-are-the-one-and-only-administrator-in-hephy-controller-"><br>Case 2: You are the one and only administrator in hephy-controller:</h4><p>Find your deis-controller pod:</p><pre><code class="language-shell">$ kubectl get pods -n deis | grep -i "deis-controller"
+--username=the account's username.</code></pre><h4 id="case-2-you-are-the-one-and-only-administrator-in-hephy-controller-"><br>Case 2: You are the one and only administrator in hephy-controller:</h4><p>Find your deis-controller pod:</p><pre><code class="language-bash">$ kubectl get pods -n deis | grep -i "deis-controller"
 deis-controller-762839819f-a6fzn                  1/1     Running   0          15d
-</code></pre><p>Execute the command to get into Django managment shell:</p><pre><code class="language-shell">$ kubectl exec --namespace=deis -it deis-controller-762839819f-a6fzn ./manage.py shell
+</code></pre><p>Execute the command to get into Django managment shell:</p><pre><code class="language-bash">$ kubectl exec --namespace=deis -it deis-controller-762839819f-a6fzn ./manage.py shell
 Python 3.6.9 (default, Apr 18 2020, 01:56:04) 
 [GCC 8.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 (InteractiveConsole)
 &gt;&gt;&gt; 
-</code></pre><p>Now in the interactive management console:</p><pre><code class="language-shell">&gt;&gt;&gt; from django.contrib.auth.models import User
+</code></pre><p>Now in the interactive management console:</p><pre><code class="language-bash">&gt;&gt;&gt; from django.contrib.auth.models import User
 &gt;&gt;&gt; u = User.objects.get(username__exact='{your_account_name}')
 &gt;&gt;&gt; u.set_password('{new_password_plain_text}')
 &gt;&gt;&gt; u.save()</code></pre><p>You can then exit by typing <code>exit()</code> or pressing <code><code>Ctrl-D</code></code></p><h4 id="notes-">Notes:</h4><p><code>deis-controller-762839819f-a6fzn</code> is the pod name of the deis-controller.</p><p>Modify <code>{your_account_name}</code> and <code>{new_password_plain_text}</code> as you like.<br></p>
@@ -246,7 +246,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 <!-- Golang syntax highlighting -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-go.min.js"></script>
 <!-- Shell syntax highlighting -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-shell.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/components/prism-bash.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	</body>
