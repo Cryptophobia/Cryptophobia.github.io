@@ -137,7 +137,8 @@
 
 		</header>
 		<main id="content">
-			<article id="5efe10ca130471bb0edae219" class="post tag-hephy tag-tutorial">
+			
+<article id="5efe10ca130471bb0edae219" class="post tag-hephy tag-tutorial">
 	<div class="post-stamp">July 2, 2020<span class="taglist"> · <a href="../tag/hephy/">hephy</a> <a href="../tag/tutorial/">tutorial</a></span></div>
 	<h1 class="post-title">Rotating Kops and Hephy Credentials</h1>
 	<p>Sometimes you need to rotate all credentials in long-running Kubernetes clusters which are usually created automatically by your deployment tool of choice. This happens as certificates and other automatically created secrets could expire. In my case, this happened because the etcd internal TLS certificate expired.</p><p>In the TeamHephy cluster we use <a href="https://github.com/kubernetes/kops">kops</a> as the deployment tool for AWS and there is a great guide written by the kops maintainers for rotating all the k8s control plane secrets:</p><p>Link: <a href="https://github.com/kubernetes/kops/blob/master/docs/rotate-secrets.md">Rotate Kops Secrets and Credentials Guide</a></p><h3 id="resetting-your-passwords-in-hephy-workflow-"><br>Resetting your passwords in Hephy Workflow:</h3><p>(hephy-controller and deis-controller are used interchangeably here)</p><h4 id="case-1-you-are-not-an-admin-in-hephy-controller-ask-your-administrator-to-exec-deis-auth-passwd-user-your_account-"><br>Case 1: You are not an admin in hephy-controller:<br><br>Ask your administrator to exec:  <code>deis auth:passwd --user {your_account}</code></h4><pre><code class="language-bash">$ deis auth:passwd --help
@@ -237,7 +238,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 	</script>
 	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div> -->
-</article>  
+</article>
 
 		</main>
 		<footer id="footer">
